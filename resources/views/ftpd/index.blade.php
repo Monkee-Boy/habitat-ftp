@@ -37,7 +37,28 @@
 									<td>
 										<div class="btn-group" role="group" aria-label="Actions">
 											<a href="/ftpd/{{ $account->id }}/edit" title="Edit {{ $account->userid }}" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></a>
-											<a href="#" title="Delete {{ $account->userid }}" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></a>
+											<button type="button" class="btn btn-default" data-toggle="modal" data-target="#destroy-{{ $account->id }}" aria-label="Delete {{ $account->userid }}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+										</div>
+
+										<!-- Modal -->
+										<div class="modal fade" id="destroy-{{ $account->id }}" tabindex="-1" role="dialog" aria-labelledby="Delete {{ $account->userid }}" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													{!! Form::model($account, array('route' => array('ftpd.destroy', $account->id), 'method' => 'DELETE', 'class' => 'btn-group', 'role' => 'group', 'aria-label' => 'Actions')) !!}
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+															<h4 class="modal-title">Delete FTP Account</h4>
+														</div>
+														<div class="modal-body">
+															<p>Are you sure you want to delete the FTP account <strong>{{ $account->userid }}</strong>? Considering marking the account as inactive instead to avoid permanently destroying.</p>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+															<button type="submit" class="btn btn-danger" aria-label="Delete {{ $account->userid }}">Delete Account</button>
+														</div>
+													{!! Form::close() !!}
+												</div>
+											</div>
 										</div>
 									</td>
 								</tr>

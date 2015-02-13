@@ -90,7 +90,7 @@ class FtpdController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		abort(404, 'Ftpd.show is not a valid route.');
 	}
 
 	/**
@@ -149,7 +149,11 @@ class FtpdController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$account = Ftpd::find($id);
+		$userid = $account->userid;
+		$account->delete();
+
+		return redirect('/')->with('message', 'The FTP account '.$userid.' was successfully deleted.')->with('message-type', 'warning');
 	}
 
 }
