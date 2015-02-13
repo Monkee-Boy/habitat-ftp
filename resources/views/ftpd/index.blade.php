@@ -31,7 +31,7 @@
 								<tr>
 									<td>{{ $account->id }}</td>
 									<td>{{ $account->userid }} @if (empty($account->homedir))<span class="label label-danger">inactive</span>@endif</td>
-									<td>{{ $account->homedir }}</td>
+									<td>@if (!empty($account->homedir)) {{ $account->homedir }} @else {{ $account->homedir_copy }} @endif</td>
 									<td class="text-center"><span class="badge">{{ $account->count }}</span></td>
 									<td>{{ $account->accessed }}</td>
 									<td>
@@ -44,6 +44,8 @@
 							@endforeach
 						</tbody>
 					</table>
+
+					{!! $accounts->render() !!}
 				</div>
 			</div>
 		</div>

@@ -145,6 +145,8 @@ return [
 		'HabitatFTP\Providers\EventServiceProvider',
 		'HabitatFTP\Providers\RouteServiceProvider',
 
+		'Illuminate\Html\HtmlServiceProvider',
+
 	],
 
 	/*
@@ -192,6 +194,9 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+
+		'Form'=> 'Illuminate\Html\FormFacade',
+		'HTML'=> 'Illuminate\Html\HtmlFacade',
 
 	],
 

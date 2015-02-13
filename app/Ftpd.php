@@ -18,7 +18,7 @@ class Ftpd extends Model {
 	*
 	* @var array
 	*/
-	protected $fillable = ['userid', 'passwd', 'uid', 'gid', 'homedir'];
+	protected $fillable = ['userid', 'passwd', 'uid', 'gid', 'homedir', 'homedir_copy'];
 
 	/**
 	* The attributes excluded from the model's JSON form.
