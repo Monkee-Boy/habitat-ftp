@@ -2,8 +2,9 @@
 
 use HabitatFTP\Http\Requests;
 use HabitatFTP\Http\Controllers\Controller;
+use Validator;
 use HabitatFTP\Ftpd;
-use Request;
+use Illuminate\Http\Request;
 
 class FtpdController extends Controller {
 	/**
@@ -44,18 +45,41 @@ class FtpdController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
+		$validator = Validator::make(
+			$request->all(),
+			[
+				'userid' => 'required|unique:ftpuser,userid|min:4',
+				'passwd' => 'required|min:8',
+				'homedir' => 'required',
+			],
+			[
+				'userid.required' => 'You must specify a username.',
+				'userid.unique' => 'That username already exists.',
+				'userid.min' => 'We require a FTP username to be at least four characters.',
+				'passwd.required' => 'You must specify a password.',
+				'passwd.min' => 'We require a FTP password to be at least eight characters. You know, security and all.',
+				'homedir.required' => 'You must specify a home directory.',
+			]
+		);
+		$validator->getPresenceVerifier()->setConnection('ftpd');
+
+		if ($validator->fails())
+		{
+				return redirect()->back()->withInput()->withErrors($validator->errors());
+		}
+
 		$account = new Ftpd;
-		$account->userid = Request::input('userid');
-		$account->passwd = crypt(Request::input('passwd'), 'mboyhabitatftpd');
+		$account->userid = $request->input('userid');
+		$account->passwd = crypt($request->input('passwd'), 'mboyhabitatftpd');
 		$account->uid = 1004;
 		$account->gid = 1002;
-		$account->homedir = Request::input('homedir');
+		$account->homedir = $request->input('homedir');
 
 		$account->save();
 
-		return redirect('/')->with('message', 'The FTP account '.Request::input('userid').' was successfully created.')->with('message-type', 'success');
+		return redirect('/')->with('message', 'The FTP account '.$request->input('userid').' was successfully created.')->with('message-type', 'success');
 	}
 
 	/**
@@ -81,7 +105,7 @@ class FtpdController extends Controller {
 
 		if(empty($account))
 		{
-			abort(404);
+			abort(404, 'We were unable to find a user that matched this id.');
 		}
 
 		return view('ftpd/edit', ['account' => $account]);
