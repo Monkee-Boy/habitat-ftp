@@ -1,23 +1,27 @@
-## Laravel PHP Framework
+![Monkee-Boy](https://dujrsrsgsd3nh.cloudfront.net/img/emoticons/113009/mboy-1403710932.jpg) Habitat FTP [![GitHub version](https://badge.fury.io/gh/Monkee-Boy%2Fhabitat-ftp.svg)](http://badge.fury.io/gh/Monkee-Boy%2Fhabitat-ftp)
+===========
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+A simple Laravel CRUD app to manage FTP accounts in the Monkee-Boy Habitat.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Setup
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+<TODO: Actually have install docs.>
 
-## Official Documentation
+* Setup Laravel - `composer install`
+* Setup local `.env` based on `.env.example`
+* Setup database and run migrations - `php artisan migrate`
+* Install packages - `npm install`
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## The Troop
 
-## Contributing
+Handcrafted with ♥ in Austin, Texas by the [Monkee-Boy Troop](http://www.monkee-boy.com/about/the-troop.php).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+| [![James Fleeting](https://avatars0.githubusercontent.com/u/23062?s=144)](https://github.com/fleeting) | [![Pete Gautier](https://avatars3.githubusercontent.com/u/5394199?s=144)](https://github.com/pgautier404) | [![Sarah Higley](https://avatars3.githubusercontent.com/u/3819570?s=144)](https://github.com/smhigley) | [![John,Hoover](https://avatars2.githubusercontent.com/u/48278?s=144)](https://github.com/defvayne23) |
+|---|---|---|---|
+| [James Fleeting](http://github.com/fleeting) | [Pete Gautier](https://github.com/pgautier404) | [Sarah Higley](https://github.com/smhigley) | [John Hoover](https://github.com/defvayne23) |
 
-### License
+## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Habitat-FTP is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+![Monkee-Boy](http://www.monkee-boy.com/img/logo-withtag-vertical-dark.jpg)
