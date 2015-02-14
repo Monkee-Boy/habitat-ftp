@@ -117,28 +117,57 @@ class FtpdController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, Request $request)
 	{
-		$account = Ftpd::find($id);
-		$account->userid = Request::input('userid');
+		$validator_rules = [
+			'userid' => 'required|min:4',
+			'homedir' => 'required',
+		];
 
-		if(!empty(Request::input('passwd')))
+		if(!empty($request->input('passwd')))
 		{
-			$account->passwd = crypt(Request::input('passwd'), 'mboyhabitatftpd');
+			$validator_rules = array_add($validator_rules, 'passwd', 'required|min:8');
 		}
 
-		if(Request::input('active') != 1)
+		$validator = Validator::make(
+			$request->all(),
+			$validator_rules,
+			[
+				'userid.required' => 'You must specify a username.',
+				'userid.unique' => 'That username already exists.',
+				'userid.min' => 'We require a FTP username to be at least four characters.',
+				'passwd.required' => 'You must specify a password.',
+				'passwd.min' => 'We require a FTP password to be at least eight characters. You know, security and all.',
+				'homedir.required' => 'You must specify a home directory.',
+			]
+		);
+		$validator->getPresenceVerifier()->setConnection('ftpd');
+
+		if ($validator->fails())
 		{
-			$account->homedir_copy = Request::input('homedir');
+				return redirect()->back()->withInput()->withErrors($validator->errors());
+		}
+
+		$account = Ftpd::find($id);
+		$account->userid = $request->input('userid');
+
+		if(!empty($request->input('passwd')))
+		{
+			$account->passwd = crypt($request->input('passwd'), 'mboyhabitatftpd');
+		}
+
+		if($request->input('active') != 1)
+		{
+			$account->homedir_copy = $request->input('homedir');
 			$account->homedir = null;
 		} else {
-			$account->homedir = Request::input('homedir');
+			$account->homedir = $request->input('homedir');
 			$account->homedir_copy = null;
 		}
 
 		$account->save();
 
-		return redirect('/')->with('message', 'The FTP account '.Request::input('userid').' was successfully updated.')->with('message-type', 'success');
+		return redirect('/')->with('message', 'The FTP account '.$request->input('userid').' was successfully updated.')->with('message-type', 'success');
 	}
 
 	/**
